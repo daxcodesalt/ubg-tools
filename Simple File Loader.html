@@ -1,0 +1,31 @@
+<!--
+Simple File Loader for UBG Sites
+
+This uses an iframe's ContentDocument property to edit the about:blank since thats one of the few URLs that can be edited
+-->
+
+<style>
+iframe{
+    border: 0; padding: 0; margin: 0;
+    width: 100%; height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+}
+</style>
+<iframe src="about:blank" id='frm'></iframe> <!-- MAKE SURE THIS IS about:blank whenever you are trying to load in stuff -->
+<script>
+    fetch("https://cdn.jsdelivr.net/gh/daxcodesalt/snoopyDependencies@main/bbplus.html") // fetch from a ubg url
+    .then(response => response.text())
+    .then(text => {
+        var frame = document.getElementById("frm"); // get the DOM element frame
+        if(frame){
+            const doc = frame.contentDocument; // get the contentdocument of the about:blank to load in
+            if(doc){
+                doc.open();
+                doc.write(text); // write all the data from the request into the about:blank
+                doc.close();
+            }
+
+        }
+    })
+</script>
