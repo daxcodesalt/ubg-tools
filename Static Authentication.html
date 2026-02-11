@@ -1,0 +1,36 @@
+<!--
+
+UBG-Tools Static Page Authentication
+
+This is used to help hide your links from non-authorized users such as staff if your UBG is static and doesn't run on a server.
+Useful for: codehs links, github pages, playcode links, etc.
+
+Important Variables:
+customKey - Defines the keyword to grant permission to view the site
+
+
+Example Authentication URL: https://example.com/?auth=CUSTOM KEY HERE
+If you are not authenticated then you will get a blank page.
+-->
+
+<body>
+    <h1>UBG-Tools Authentication demo.</h1>
+</body>
+
+<script>
+    document.body.display = "none";
+
+    let customKey = "ubgtools";
+    let defaultLink = "https://example.com";
+    
+    if(window.location.href == defaultLink + "/?auth=" + customKey){
+        localStorage.setItem("authentication", customKey)
+        window.location.href = defaultLink
+    }
+
+    if(localStorage.getItem("authentication") == customKey){
+        document.body.display = "block";
+    } else {
+        document.body.remove();
+    }
+</script>
